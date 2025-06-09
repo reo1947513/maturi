@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせの編集</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 2px solid #0D3B66; padding-bottom: 10px; }
+        a { color: #0D3B66; }
+        /* フォーム用のスタイル */
+        .form-container { margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: 1em; }
+        .form-button { padding: 10px 20px; background-color: #0D3B66; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>お知らせの編集</h1>
+        <p><a href="{{ url_for('admin_news') }}">&laquo; お知らせ一覧に戻る</a></p>
+
+        <div class="form-container">
+            <form method="post" action="{{ url_for('admin_update_news', news_id=news_item['id']) }}">
+                <div class="form-group">
+                    <label for="date">日付</label>
+                    <input type="date" id="date" name="date" value="{{ news_item['date'] }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">内容</label>
+                    <textarea id="content" name="content" rows="4" required>{{ news_item['content'] }}</textarea>
+                </div>
+                <button type="submit" class="form-button">更新する</button>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

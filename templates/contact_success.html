@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ完了</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=EB+Garamond&family=Yuji+Syuku&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ↓ ホームページと同じCSS変数を定義 */
+        :root {
+            --main-color: #0D3B66;
+            --accent-color: #C9A33F;
+            --font-jp: 'Noto Serif JP', serif;
+        }
+        body {
+            font-family: var(--font-jp); /* ← font-familyを適用 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            text-align: center;
+            color: #fff;
+        }
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 500px;
+            color: #333; /* ボックス内の基本文字色 */
+        }
+        h1 {
+            color: var(--accent-color); /* ← 金色を変数に変更 */
+            margin-bottom: 20px;
+        }
+        p {
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #000;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s; /* ← transitionを修正 */
+        }
+        .back-button:hover {
+            background-color: var(--accent-color); /* ← ホバー時の色を変数に変更 */
+            color: #fff; /* ← ホバー時の文字色を白に変更 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>お問い合わせ完了</h1>
+        <p>
+            お問い合わせいただき、誠にありがとうございます。<br>
+            内容を確認の上、担当者より折り返しご連絡いたします。
+        </p>
+        <a href="{{ url_for('index') }}" class="back-button">トップページへ戻る</a>
+    </div>
+</body>
+</html>

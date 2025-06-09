@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理ダッシュボード</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 2px solid #0D3B66; padding-bottom: 10px; }
+        .menu-list { list-style: none; padding: 0; }
+        .menu-list li { margin: 15px 0; }
+        .menu-list a { text-decoration: none; color: #0D3B66; font-size: 1.2em; transition: color 0.3s; }
+        .menu-list a:hover { color: #C9A33F; }
+        .logout-link { display: inline-block; margin-top: 30px; color: #555; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>管理ダッシュボード</h1>
+        <p>ようこそ！ここからサイトの情報を管理します。</p>
+        
+        <ul class="menu-list">
+            <li><a href="{{ url_for('admin_news') }}">お知らせの管理</a></li>
+            <li><a href="{{ url_for('admin_gallery') }}">フォトギャラリーの管理</a></li>
+            <li><a href="{{ url_for('admin_contacts') }}">お問い合わせの確認</a></li>
+            <li><a href="{{ url_for('admin_reservations') }}">予約リクエストの確認</a></li>
+        </ul>
+
+        <a href="{{ url_for('logout') }}" class="logout-link">ログアウト</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせ管理</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        h1 { border-bottom: 2px solid #0D3B66; padding-bottom: 10px; }
+        h2 { margin-top: 40px; }
+        .news-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .news-table th, .news-table td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+        .news-table th { background-color: #f9f9f9; }
+        .actions a { margin-right: 10px; text-decoration: none; color: #0D3B66; }
+        .actions a.delete { color: #D9534F; }
+        a { color: #0D3B66; }
+        /* フォーム用のスタイル */
+        .form-container { margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: 1em; }
+        .form-button { padding: 10px 20px; background-color: #0D3B66; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>お知らせ管理</h1>
+        <p><a href="{{ url_for('admin_dashboard') }}">&laquo; ダッシュボードに戻る</a></p>
+
+        <div class="form-container">
+            <h2>新しいお知らせを追加</h2>
+            <form method="post" action="{{ url_for('admin_add_news') }}">
+                <div class="form-group">
+                    <label for="date">日付</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">内容</label>
+                    <textarea id="content" name="content" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="form-button">追加する</button>
+            </form>
+        </div>
+
+        <h2>お知らせ一覧</h2>
+        <table class="news-table">
+            <thead>
+                <tr>
+                    <th>日付</th>
+                    <th>内容</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for news_item in news_list %}
+                <tr>
+                    <td>{{ news_item['date'] }}</td>
+                    <td>{{ news_item['content'] }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('admin_edit_news', news_id=news_item['id']) }}">編集</a>
+                        <a href="{{ url_for('admin_delete_news', news_id=news_item['id']) }}" 
+                           class="delete" 
+                           onclick="return confirm('このお知らせを本当に削除しますか？')">削除</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">お知らせはまだありません。</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

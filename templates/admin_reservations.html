@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>予約リクエスト確認</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 20px 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 2px solid #0D3B66; padding-bottom: 10px; }
+        .reservations-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .reservations-table th, .reservations-table td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; vertical-align: top; }
+        .reservations-table th { background-color: #f9f9f9; }
+        .notes-cell { white-space: pre-wrap; word-wrap: break-word; }
+        a { color: #0D3B66; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>予約リクエスト確認</h1>
+        <p><a href="{{ url_for('admin_dashboard') }}">&laquo; ダッシュボードに戻る</a></p>
+
+        <table class="reservations-table">
+            <thead>
+                <tr>
+                    <th>受信日時</th>
+                    <th>お名前</th>
+                    <th>電話番号</th>
+                    <th>希望日時</th>
+                    <th>人数</th>
+                    <th>ご要望</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in reservations_list %}
+                <tr>
+                    <td>{{ r['request_received_at'] }}</td>
+                    <td>{{ r['name'] }}</td>
+                    <td>{{ r['phone_number'] }}</td>
+                    <td>{{ r['reservation_date'] }} {{ r['reservation_time'] }}</td>
+                    <td>{{ r['number_of_people'] }}名様</td>
+                    <td class="notes-cell">{{ r['notes'] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6">予約リクエストはまだありません。</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

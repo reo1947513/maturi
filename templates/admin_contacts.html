@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ確認</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 2px solid #0D3B66; padding-bottom: 10px; }
+        .contacts-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .contacts-table th, .contacts-table td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; vertical-align: top; }
+        .contacts-table th { background-color: #f9f9f9; }
+        .message-cell { white-space: pre-wrap; word-wrap: break-word; }
+        .actions a { text-decoration: none; color: #D9534F; }
+        a { color: #0D3B66; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>お問い合わせ確認</h1>
+        <p><a href="{{ url_for('admin_dashboard') }}">&laquo; ダッシュボードに戻る</a></p>
+
+        <table class="contacts-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">受信日時</th>
+                    <th style="width: 15%;">お名前</th>
+                    <th style="width: 20%;">メールアドレス</th>
+                    <th style="width: 40%;">内容</th>
+                    <th style="width: 10%;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts_list %}
+                <tr>
+                    <td>{{ contact['received_at'] }}</td>
+                    <td>{{ contact['name'] }}</td>
+                    <td>{{ contact['email'] }}</td>
+                    <td class="message-cell">{{ contact['message'] }}</td>
+                    <td class="actions">
+                        <a href="#" onclick="return confirm('このお問い合わせを削除しますか？')">削除</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">お問い合わせはまだありません。</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

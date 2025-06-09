@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォトギャラリー管理</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 20px 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        h1 { border-bottom: 2px solid #0D3B66; padding-bottom: 10px; }
+        a { color: #0D3B66; }
+        /* フォーム用のスタイル */
+        .form-container { margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-button { padding: 10px 20px; background-color: #0D3B66; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        /* 写真一覧用のスタイル */
+        .photo-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .photo-item { border: 1px solid #ddd; border-radius: 4px; overflow: hidden; text-align: center; }
+        .photo-item img { max-width: 100%; height: 120px; object-fit: cover; }
+        .photo-info { padding: 10px; }
+        .photo-info p { word-break: break-all; font-size: 0.9em; margin: 0 0 10px 0; }
+        .delete-button { background: #D9534F; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>フォトギャラリー管理</h1>
+        <p><a href="{{ url_for('admin_dashboard') }}">&laquo; ダッシュボードに戻る</a></p>
+
+        <div class="form-container">
+            <h2>新しい写真を追加</h2>
+            <form method="post" action="{{ url_for('admin_upload_photo') }}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="photos">写真ファイルを選択（複数選択可）</label>
+                    <input type="file" id="photos" name="photos" multiple required>
+                </div>
+                <button type="submit" class="form-button">アップロードする</button>
+            </form>
+        </div>
+
+        <h2>登録写真一覧</h2>
+        <div class="photo-list">
+            {% for photo in photo_list %}
+            <div class="photo-item">
+                <img src="{{ url_for('static', filename='images/gallery/' + photo) }}" alt="{{ photo }}">
+                <div class="photo-info">
+                    <p>{{ photo }}</p>
+                    <form method="post" action="{{ url_for('admin_delete_photo', filename=photo) }}" style="display:inline;">
+                        <button type="submit" class="delete-button" onclick="return confirm('この写真を本当に削除しますか？')">削除</button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <p>ギャラリーに写真がありません。</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
