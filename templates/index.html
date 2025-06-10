@@ -8,26 +8,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=EB+Garamond&family=Yuji+Syuku&display=swap" rel="stylesheet">
-    
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-
     <style>
         .reservation-section { background-color: var(--background-color-gray); }
         .contact-section { background-color: var(--background-color-light); }
         .contact-form { max-width: 600px; margin: 0 auto; }
         .contact-form-group { margin-bottom: 20px; }
         .contact-form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .contact-form-group input,
-        .contact-form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1em; }
-        .contact-form-button { display: block; width: 100%; padding: 15px; background-color: var(--main-color); color: var(--text-color-light); border: none; border-radius: 4px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s; }
-        .contact-form-button:hover { background-color: var(--accent-color); }
+        .contact-form-group input, .contact-form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1em; }
+        .contact-form-button { display: block; width: 100%; padding: 15px; background-color: var(--main-color); color: var(--text-color-light); border: none; border-radius: 4px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s, transform 0.3s; }
+        .contact-form-button:hover { background-color: var(--accent-color); transform: scale(1.02); }
     </style>
 </head>
 <body>
     <div id="opening-overlay">
         <div id="opening-logo">祭</div>
     </div>
-
     <div id="main-content">
         <header class="page-header">
             <button class="hamburger-button" type="button" aria-label="メニューを開く">
@@ -36,7 +32,6 @@
                 <span class="hamburger-bar"></span>
             </button>
         </header>
-
         <nav class="fullscreen-nav">
             <ul class="fullscreen-nav-links">
                 <li><a href="#charm" class="fullscreen-nav-link">お店の魅力</a></li>
@@ -48,19 +43,16 @@
                 <li><a href="#news" class="fullscreen-nav-link">お知らせ</a></li>
             </ul>
         </nav>
-
         <header class="scroll-header">
             <div class="scroll-header-logo">祭</div>
         </header>
-
-        <section id="top" class="hero-section">
+        <section id="top" class="hero-section" style="background-image: url('{{ url_for('static', filename='images/gallery/' + settings.hero_image) }}');">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1 class="hero-logo">祭</h1>
                 <p class="hero-catchphrase">笑い声がこだまする、<br>ママに会いたくなる夜。</p>
             </div>
         </section>
-
         <main>
             <section id="charm" class="charm-section content-section">
                 <h2 class="section-title js-scroll-trigger">お店の魅力</h2>
@@ -74,7 +66,6 @@
                     <li class="js-scroll-trigger">心温まるおもてなしで、皆様をお迎えします。</li>
                 </ul>
             </section>
-
             <section id="photo" class="photo-section content-section">
                 <h2 class="section-title js-scroll-trigger">ギャラリー</h2>
                 <div class="photo-grid">
@@ -86,13 +77,10 @@
                         </a>
                     </div>
                     {% else %}
-                    <div class="photo-item js-scroll-trigger">
-                        <p>現在、ギャラリーに表示できる写真がありません。</p>
-                    </div>
+                    <div class="photo-item js-scroll-trigger"><p>現在、ギャラリーに表示できる写真がありません。</p></div>
                     {% endfor %}
                 </div>
             </section>
-
             <section id="system" class="system-section content-section">
                 <h2 class="section-title js-scroll-trigger">料金システム</h2>
                 <div class="system-table-container js-scroll-trigger">
@@ -121,7 +109,6 @@
                     </table>
                 </div>
             </section>
-
             <section id="information" class="information-section content-section">
                 <h2 class="section-title js-scroll-trigger">アクセスマップ</h2>
                 <div class="map-container-wrapper js-scroll-trigger">
@@ -130,85 +117,45 @@
                     </div>
                 </div>
             </section>
-
             <section id="reservation" class="reservation-section content-section">
                 <h2 class="section-title js-scroll-trigger">ご予約</h2>
                 <form action="/reserve" method="post" class="contact-form js-scroll-trigger">
                     <p style="text-align: center; margin-bottom: 20px;">こちらのフォームは予約リクエスト用です。当店からの折り返しのご連絡をもって、ご予約確定とさせていただきます。</p>
-                    <div class="contact-form-group">
-                        <label for="res-name">お名前</label>
-                        <input type="text" id="res-name" name="name" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="res-phone">お電話番号</label>
-                        <input type="tel" id="res-phone" name="phone_number" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="res-date">ご希望日</label>
-                        <input type="date" id="res-date" name="reservation_date" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="res-time">ご希望時間</label>
-                        <input type="time" id="res-time" name="reservation_time" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="res-people">ご利用人数</label>
-                        <input type="number" id="res-people" name="number_of_people" min="1" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="res-notes">ご要望など（任意）</label>
-                        <textarea id="res-notes" name="notes" rows="3"></textarea>
-                    </div>
+                    <div class="contact-form-group"><label for="res-name">お名前</label><input type="text" id="res-name" name="name" required></div>
+                    <div class="contact-form-group"><label for="res-phone">お電話番号</label><input type="tel" id="res-phone" name="phone_number" required></div>
+                    <div class="contact-form-group"><label for="res-date">ご希望日</label><input type="date" id="res-date" name="reservation_date" required></div>
+                    <div class="contact-form-group"><label for="res-time">ご希望時間</label><input type="time" id="res-time" name="reservation_time" required></div>
+                    <div class="contact-form-group"><label for="res-people">ご利用人数</label><input type="number" id="res-people" name="number_of_people" min="1" required></div>
+                    <div class="contact-form-group"><label for="res-notes">ご要望など（任意）</label><textarea id="res-notes" name="notes" rows="3"></textarea></div>
                     <button type="submit" class="contact-form-button">予約リクエストを送信する</button>
                 </form>
             </section>
-
             <section id="contact" class="contact-section content-section">
                 <h2 class="section-title js-scroll-trigger">お問い合わせ</h2>
                 <form action="/contact" method="post" class="contact-form js-scroll-trigger">
-                    <div class="contact-form-group">
-                        <label for="name">お名前</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="email">メールアドレス</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="message">お問い合わせ内容</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
+                    <div class="contact-form-group"><label for="name">お名前</label><input type="text" id="name" name="name" required></div>
+                    <div class="contact-form-group"><label for="email">メールアドレス</label><input type="email" id="email" name="email" required></div>
+                    <div class="contact-form-group"><label for="message">お問い合わせ内容</label><textarea id="message" name="message" rows="5" required></textarea></div>
                     <button type="submit" class="contact-form-button">送信する</button>
                 </form>
             </section>
-            
             <section id="news" class="news-section content-section">
                 <h2 class="section-title js-scroll-trigger">お知らせ</h2>
                 <ul class="news-list">
                     {% for item in news_list %}
-                    <li class="news-item js-scroll-trigger">
-                        <p class="news-date">{{ item['date'] }}</p>
-                        <p class="news-content">{{ item['content'] }}</p>
-                    </li>
+                    <li class="news-item js-scroll-trigger"><p class="news-date">{{ item['date'] }}</p><p class="news-content">{{ item['content'] }}</p></li>
                     {% else %}
-                    <li class="news-item js-scroll-trigger">
-                        <p class="news-content">現在、新しいお知らせはありません。</p>
-                    </li>
+                    <li class="news-item js-scroll-trigger"><p class="news-content">現在、新しいお知らせはありません。</p></li>
                     {% endfor %}
                 </ul>
             </section>
         </main>
-
-        <footer class="site-footer">
+        <footer class="site-footer" style="background-image: url('{{ url_for('static', filename='images/gallery/' + settings.footer_image) }}');">
             <div class="footer-content-wrapper">
                 <div class="footer-logo">祭</div>
                 <div class="sns-icons">
-                    <a href="#" target="_blank" class="sns-icon">
-                        <img width="48" height="48" src="https://img.icons8.com/color/48/line-me.png" alt="line-me"/>
-                    </a>
-                    <a href="https://www.instagram.com/lounge.matsuri/?hl=ja" target="_blank" class="sns-icon">
-                        <img width="48" height="48" src="https://img.icons8.com/fluency/48/instagram-new.png" alt="instagram-new"/>
-                    </a>
+                    <a href="#" target="_blank" class="sns-icon"><img width="48" height="48" src="https://img.icons8.com/color/48/line-me.png" alt="line-me"/></a>
+                    <a href="https://www.instagram.com/lounge.matsuri/?hl=ja" target="_blank" class="sns-icon"><img width="48" height="48" src="https://img.icons8.com/fluency/48/instagram-new.png" alt="instagram-new"/></a>
                 </div>
                 <div class="footer-info">
                     <p class="footer-address">〒590-0946 大阪府堺市堺区熊野町東１丁２−２０ ジョイフルＫ3F</p>
@@ -221,7 +168,6 @@
         <footer class="copyright-footer">
             <p class="footer-copyright-text">© <span id="current-year-copyright"></span> 祭 –まつり–</p>
         </footer>
-
         <button id="scrollToTopBtn" title="トップへ戻る">↑</button>
     </div>
 </body>
