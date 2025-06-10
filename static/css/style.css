@@ -45,7 +45,21 @@ body.no-scroll { overflow: hidden; }
 .scroll-header-logo { font-family: var(--font-logo-scroll); font-size: 26px; color: var(--accent-color); }
 
 /* ヒーロー */
-.hero-section { height: 100vh; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; background: url('../images/gallery/店内写真2.jpg') no-repeat center center/cover; background-color: #333; overflow: hidden; text-align: center; }
+.hero-section {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* ↓ background-imageはHTML側で指定するため、ここでは背景色のみを定義 */
+    background-color: #333;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-align: center;
+}
 .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.7) 100%); z-index: 1; }
 .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
 .hero-logo { font-family: var(--font-logo-hero); font-weight: 300; font-size: 300px; color: var(--accent-color); opacity: 0.9; margin-bottom: -25px; }
@@ -97,7 +111,6 @@ body.no-scroll { overflow: hidden; }
 .contact-form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
 .contact-form-group input,
 .contact-form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 1em; }
-/* ↓ ここのボタンのスタイルを修正しました ↓ */
 .contact-form-button {
     display: block;
     width: 100%;
@@ -108,14 +121,13 @@ body.no-scroll { overflow: hidden; }
     border-radius: 4px;
     font-size: 1.2em;
     cursor: pointer;
-    font-family: var(--font-jp); /* フォントを適用 */
-    transition: background-color 0.3s, transform 0.3s; /* transitionにtransformを追加 */
+    font-family: var(--font-jp);
+    transition: background-color 0.3s, transform 0.3s;
 }
 .contact-form-button:hover {
     background-color: var(--accent-color);
-    transform: scale(1.02); /* 少し拡大するエフェクトを追加 */
+    transform: scale(1.02);
 }
-/* ↑ ここまで修正 ↑ */
 
 /* お知らせ */
 .news-section { background-color: var(--background-color-gray); }
@@ -140,8 +152,11 @@ body.no-scroll { overflow: hidden; }
 /* フッター */
 .site-footer {
     position: relative;
-    background: url('../images/gallery/店内写真3.jpg') no-repeat center center;
+    /* ↓ background-imageはHTML側で指定するため、ここでは背景色のみを定義 */
+    background-color: #333;
     background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     color: var(--text-color-light);
     text-align: center;
     padding: 0;
